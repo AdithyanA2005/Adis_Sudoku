@@ -8,6 +8,7 @@ export default {
     extend: {
       fontFamily: {
         "bagel": ["Bagel Fat One", "cursive"],
+        "glitch": ["Rubik Glitch", "cursive"],
       }
     },
   },
