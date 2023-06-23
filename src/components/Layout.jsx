@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
-import { getRandomColor } from "../utils/colors";
+import ColorContext from "../context/color/ColorContext";
 
 export default function Layout() {
+  const { primaryColor } = useContext(ColorContext);
+
   return (
-    <div style={{borderColor: getRandomColor()}} className="border-4 bg-black h-screen">
+    <div style={{ borderColor: primaryColor }} className="border-4 bg-black h-screen">
       <Navbar />
       <main className="mx-3">
         <Outlet />
