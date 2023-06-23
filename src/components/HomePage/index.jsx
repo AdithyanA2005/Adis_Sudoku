@@ -10,8 +10,8 @@ export default function HomePage() {
     <section className="mt-[20vh] flex flex-col gap-10 items-center">
       {/* Start Playing Heading */}
       <h1 className="font-bagel text-center text-7xl md:text-8xl">
-        {["S", "t", "a", "r", "t", " ", "P", "l", "a", "y", "i", "n", "g"].map((char) => (
-          <span style={{ color: getRandomColor() }}>{char}</span>
+        {["S", "t", "a", "r", "t", " ", "P", "l", "a", "y", "i", "n", "g"].map((char, index) => (
+          <span key={index} style={{ color: getRandomColor() }}>{char}</span>
         ))}
       </h1>
 
