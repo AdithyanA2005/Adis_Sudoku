@@ -9,6 +9,10 @@ export default function BoardState(props) {
   const [board, setBoard] = useState(boardDefaultValues);
   const [boardSol, setBoardSol] = useState(null);
 
+  // Stores no of lives left
+  const totalNoOfLives = 3;
+  const [livesLeft, setLivesLeft] = useState(totalNoOfLives);
+
   // This will store the count of a specific numbers to fill cells
   const [fillBtnsCount, setFillBtnsCount] = useState([9, 9, 9, 9, 9, 9, 9, 9, 9]);
 
@@ -49,8 +53,32 @@ export default function BoardState(props) {
       })
   }, []);
 
+  useEffect(() => {
+    if (livesLeft === 0) {
+      alert("game over")
+    }
+  }, [livesLeft])
+
+  // Update a specific cell in the grid
+  const updateCell = (value) => {
+    setBoard(prevBoard => {
+      // Indices of currenty selected cell
+      const rowIndex = focusedCell.row;
+      const colIndex = focusedCell.col;
+
+      // Check if entered value is a correct value else reduce a life
+      const correctValue = boardSol[rowIndex][colIndex];
+      if (value !== correctValue) return setLives(prev => prev - 1)
+
+      // Update the value in the board
+      const newBoard = [...prevBoard];
+      newBoard[rowIndex][colIndex] = value;
+      setBoard(newBoard);
+    });
+  };
+
   return (
-    <BoardContext.Provider value={{ board, boardSol, loading, setLoading, fillBtnsCount, setFillBtnsCount, focusedCell, setFocusedCell }}>
+    <BoardContext.Provider value={{ board, boardSol, loading, setLoading, livesLeft, setLivesLeft, totalNoOfLives, fillBtnsCount, setFillBtnsCount, focusedCell, setFocusedCell, updateCell }}>
       {props.children}
     </BoardContext.Provider>
   );
