@@ -6,9 +6,10 @@ export default function FillBtn({ value, count }) {
   const { primaryColor } = useContext(ColorContext);
 
   return (
-    <div 
+    <button 
       style={{ backgroundColor: primaryColor }}
-      className="aspect-square rounded-xl flex flex-col items-center justify-center"
+      disabled={count === 0}
+      className="cursor-pointer disabled:cursor-auto aspect-square rounded-xl flex flex-col items-center justify-center"
     >
       <h2 className="text-2xl sm:text-3xl md:text-4xl" >
         {value}
@@ -17,7 +18,7 @@ export default function FillBtn({ value, count }) {
       <h3 className="text-md -mt-1.5 sm:-mt-1 font-medium">
         {count}
       </h3>
-    </div>
+    </button>
   )
 }
 
