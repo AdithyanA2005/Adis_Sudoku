@@ -13,8 +13,11 @@ export default function ColorState(props) {
     return randomColor
   });
 
+  // Color used in the board lines
+  const tertiaryColor = "rgb(51 65 85)";
+
   return (
-    <ColorContext.Provider value={{ primaryColor, secondaryColor }}>
+    <ColorContext.Provider value={{ primaryColor, secondaryColor, tertiaryColor }}>
       {props.children}
     </ColorContext.Provider>
   );
