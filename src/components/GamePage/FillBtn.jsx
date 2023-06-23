@@ -9,7 +9,7 @@ export default function FillBtn({ value, count }) {
     <button 
       style={{ backgroundColor: primaryColor }}
       disabled={count === 0}
-      className="cursor-pointer disabled:cursor-auto aspect-square rounded-xl flex flex-col items-center justify-center"
+      className="cursor-pointer select-none disabled:cursor-auto aspect-square rounded-xl flex flex-col items-center justify-center"
     >
       <h2 className="text-2xl sm:text-3xl md:text-4xl" >
         {value}
