@@ -21,7 +21,7 @@ export default function BoardCell({ value, rowIndex, colIndex }) {
           : focusedCell.col === colIndex
             ? "opacity-[0.90]"
             : " hover:opacity-[0.90]"
-        } grid select-none place-items-center outline-none text-3xl sm:text-4xl`}
+        } grid select-none aspect-square place-items-center outline-none text-3xl sm:text-4xl`}
       onFocus={handleOnFocus}
     >
       {value === 0 ? " " : value}
