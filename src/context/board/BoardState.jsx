@@ -9,6 +9,9 @@ export default function BoardState(props) {
   const [board, setBoard] = useState(boardDefaultValues);
   const [boardSol, setBoardSol] = useState(null);
 
+  // This will store the count of a specific numbers to fill cells
+  const [fillBtnsCount, setFillBtnsCount] = useState([9, 9, 9, 9, 9, 9, 9, 9, 9]);
+
   // State denoting whether the board is loading
   const [loading, setLoading] = useState(true);
 
@@ -47,7 +50,7 @@ export default function BoardState(props) {
   }, []);
 
   return (
-    <BoardContext.Provider value={{ board, boardSol, loading, setLoading, focusedCell, setFocusedCell }}>
+    <BoardContext.Provider value={{ board, boardSol, loading, setLoading, fillBtnsCount, setFillBtnsCount, focusedCell, setFocusedCell }}>
       {props.children}
     </BoardContext.Provider>
   );
