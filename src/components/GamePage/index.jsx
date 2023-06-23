@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useRef } from "react";
 import BoardCell from "./BoardCell";
+import FillBtn from "./FillBtn";
 import BoardContext from "../../context/board/BoardContext";
 
 export default function GamePage() {
   const tableRef = useRef(null);
-  const { board } = useContext(BoardContext);
+  const { board, fillBtnsCount } = useContext(BoardContext);
   const { focusedCell, setFocusedCell } = useContext(BoardContext);
 
   // To use arrows to shift between different cells
@@ -36,6 +37,12 @@ export default function GamePage() {
             />
           ))
         })}
+      </div>
+
+      <div className="w-full max-w-2xl mx-auto grid grid-cols-9 gap-1 md:gap-2 mt-[2vw]">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((number, index) => (
+          <FillBtn key={index} value={number} count={fillBtnsCount[index]} />
+        ))}
       </div>
     </section>
   )
