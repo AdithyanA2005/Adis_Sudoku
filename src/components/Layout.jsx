@@ -9,7 +9,7 @@ export default function Layout() {
   return (
     <div style={{ borderColor: primaryColor }} className="border-4 bg-black min-h-screen">
       <Navbar />
-      <main className="mx-3">
+      <main className="mx-3 mb-3">
         <Outlet />
       </main>
     </div>
