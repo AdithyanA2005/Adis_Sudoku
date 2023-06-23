@@ -57,7 +57,25 @@ export default function BoardState(props) {
         setGameOver(false);
         setLivesLeft(totalNoOfLives);
       })
-  }
+  };
+
+  // Update a specific cell in the grid
+  const updateCell = (value) => {
+    setBoard(prevBoard => {
+      // Indices of currenty selected cell
+      const rowIndex = focusedCell.row;
+      const colIndex = focusedCell.col;
+
+      // Check if entered value is a correct value else reduce a life
+      const correctValue = boardSol[rowIndex][colIndex];
+      if (value !== correctValue) return setLives(prev => prev - 1)
+
+      // Update the value in the board
+      const newBoard = [...prevBoard];
+      newBoard[rowIndex][colIndex] = value;
+      setBoard(newBoard);
+    });
+  };
 
   // This will fetch data from api and store it in state variables
   useEffect(() => {
@@ -89,24 +107,6 @@ export default function BoardState(props) {
 
     setFillBtnsCount(availNoCount);
   }, [board])
-
-  // Update a specific cell in the grid
-  const updateCell = (value) => {
-    setBoard(prevBoard => {
-      // Indices of currenty selected cell
-      const rowIndex = focusedCell.row;
-      const colIndex = focusedCell.col;
-
-      // Check if entered value is a correct value else reduce a life
-      const correctValue = boardSol[rowIndex][colIndex];
-      if (value !== correctValue) return setLives(prev => prev - 1)
-
-      // Update the value in the board
-      const newBoard = [...prevBoard];
-      newBoard[rowIndex][colIndex] = value;
-      setBoard(newBoard);
-    });
-  };
 
   return (
     <BoardContext.Provider value={{ board, boardSol, gameOver, setGameOver, getNewBoard, loading, setLoading, livesLeft, setLivesLeft, totalNoOfLives, fillBtnsCount, setFillBtnsCount, focusedCell, setFocusedCell, updateCell }}>
