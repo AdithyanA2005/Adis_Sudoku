@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import ColorContext from "../../context/color/ColorContext";
 import BoardContext from "../../context/board/BoardContext";
 
-export default function BoardCell({ cellContent, rowIndex, colIndex }) {
+export default function BoardCell({ value, rowIndex, colIndex }) {
   const { secondaryColor } = useContext(ColorContext);
   const { focusedCell, setFocusedCell } = useContext(BoardContext);
 
@@ -24,13 +24,13 @@ export default function BoardCell({ cellContent, rowIndex, colIndex }) {
         } grid select-none place-items-center outline-none text-3xl sm:text-4xl`}
       onFocus={handleOnFocus}
     >
-      {cellContent}
+      {value === 0 ? " " : value}
     </div>
   )
 }
 
 BoardCell.propTypes = {
-  cellContent: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  value: PropTypes.number.isRequired,
   colIndex: PropTypes.number.isRequired,
   rowIndex: PropTypes.number.isRequired,
 }
