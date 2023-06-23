@@ -7,7 +7,7 @@ export default function Layout() {
   const { primaryColor } = useContext(ColorContext);
 
   return (
-    <div style={{ borderColor: primaryColor }} className="border-4 bg-black h-screen">
+    <div style={{ borderColor: primaryColor }} className="border-4 bg-black min-h-screen">
       <Navbar />
       <main className="mx-3">
         <Outlet />
