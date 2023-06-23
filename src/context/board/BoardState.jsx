@@ -76,12 +76,16 @@ export default function BoardState(props) {
   useEffect(() => {
     const availNoCount = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+    // This will make the array store the no of time a numbers is "used" in the table
     for (const rowIndex in board) {
       for (const colIndex in board[rowIndex]) {
         const cell = board[rowIndex][colIndex];
         if (cell !== 0) availNoCount[cell - 1] = availNoCount[cell - 1] + 1;
       }
     }
+
+    // This will make the array store the no of time a number "can be used" again
+    for (const i in availNoCount) availNoCount[i] = 9 - availNoCount[i];
 
     setFillBtnsCount(availNoCount);
   }, [board])
