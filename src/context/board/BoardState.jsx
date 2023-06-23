@@ -17,7 +17,7 @@ export default function BoardState(props) {
   const [gameOver, setGameOver] = useState(false);
 
   // This will store the count of a specific numbers to fill cells
-  const [fillBtnsCount, setFillBtnsCount] = useState([9, 9, 9, 9, 9, 9, 9, 9, 9]);
+  const [fillBtnsCount, setFillBtnsCount] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
 
   // State denoting whether the board is loading
   const [loading, setLoading] = useState(true);
@@ -64,12 +64,27 @@ export default function BoardState(props) {
     getNewBoard();
   }, []);
 
+  // This will be executed when no of lives left changes
   useEffect(() => {
     if (livesLeft === 0) {
       setGameOver(true);
       alert("game over")
     }
   }, [livesLeft])
+
+  // This will be executed when the boards values changes
+  useEffect(() => {
+    console.log("hai")
+    const availNoCount = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    for (const rowIndex in board) {
+      for (const colIndex in board[rowIndex]) {
+        const cell = board[rowIndex][colIndex];
+        if (cell !== 0) availNoCount[cell - 1] = availNoCount[cell - 1] + 1;
+      }
+    }
+    setFillBtnsCount(availNoCount);
+  }, [board])
 
   // Update a specific cell in the grid
   const updateCell = (value) => {
