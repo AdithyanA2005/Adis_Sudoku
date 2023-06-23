@@ -74,7 +74,6 @@ export default function BoardState(props) {
 
   // This will be executed when the boards values changes
   useEffect(() => {
-    console.log("hai")
     const availNoCount = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     for (const rowIndex in board) {
@@ -83,6 +82,7 @@ export default function BoardState(props) {
         if (cell !== 0) availNoCount[cell - 1] = availNoCount[cell - 1] + 1;
       }
     }
+
     setFillBtnsCount(availNoCount);
   }, [board])
 
