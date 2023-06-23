@@ -14,7 +14,14 @@ export default function BoardCell({ cellContent, rowIndex, colIndex }) {
     <div
       tabIndex={0}
       style={{ backgroundColor: secondaryColor }}
-      className={`${focusedCell.row === rowIndex && focusedCell.col === colIndex && "ring-[2px] ring-black rounded-sm ring-opacity-70 z-10 opacity-[0.90]"}  grid place-items-center outline-none text-3xl sm:text-4xl hover:opacity-[0.90] `}
+      className={`${(focusedCell.row === rowIndex && focusedCell.col === colIndex)
+        ? "ring-[2px] ring-black rounded-sm ring-opacity-50 z-10 opacity-[0.80]"
+        : focusedCell.row === rowIndex
+          ? "opacity-[0.90]"
+          : focusedCell.col === colIndex
+            ? "opacity-[0.90]"
+            : " hover:opacity-[0.90]"
+        } grid place-items-center outline-none text-3xl sm:text-4xl`}
       onFocus={handleOnFocus}
     >
       {cellContent}
