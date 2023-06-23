@@ -10,8 +10,11 @@ export default function BoardState(props) {
   const [boardSol, setBoardSol] = useState(null);
 
   // Stores no of lives left
-  const totalNoOfLives = 3;
+  const [totalNoOfLives, setTotalNoOfLives] = useState(3);
   const [livesLeft, setLivesLeft] = useState(totalNoOfLives);
+
+  // State denoting whether the game is finished or not
+  const [gameOver, setGameOver] = useState(false);
 
   // This will store the count of a specific numbers to fill cells
   const [fillBtnsCount, setFillBtnsCount] = useState([9, 9, 9, 9, 9, 9, 9, 9, 9]);
@@ -22,18 +25,19 @@ export default function BoardState(props) {
   // Specifies the row and col of the currently selected cell
   const [focusedCell, setFocusedCell] = useState({ row: 0, col: 0 });
 
-  // This will fetch data from api and store it in state variables
-  useEffect(() => {
-    const reqUrl = 'https://sudoku-api.vercel.app/api/dosuku';
-    const reqConfig = { method: 'POST', headers: { 'Content-Type': 'application/json' } };
+  // The request config
+  const reqUrl = "https://sudoku-api.vercel.app/api/dosuku";
+  const reqConfig = { method: "POST", headers: { "Content-Type": "application/json" } };
 
+  // Get New Board from api
+  const getNewBoard = () => {
     // Set loading to true before sending request
     setLoading(true);
 
     // Get raw resposnse from api call
     fetch(reqUrl, reqConfig)
       .then((res) => {
-        if (!res.ok) throw new Error('Request failed');
+        if (!res.ok) throw new Error("Request failed");
         return res.json();
       })
       .then((resJson) => {
@@ -50,11 +54,19 @@ export default function BoardState(props) {
       })
       .finally(() => {
         setLoading(false);
+        setGameOver(false);
+        setLivesLeft(totalNoOfLives);
       })
+  }
+
+  // This will fetch data from api and store it in state variables
+  useEffect(() => {
+    getNewBoard();
   }, []);
 
   useEffect(() => {
     if (livesLeft === 0) {
+      setGameOver(true);
       alert("game over")
     }
   }, [livesLeft])
@@ -78,7 +90,7 @@ export default function BoardState(props) {
   };
 
   return (
-    <BoardContext.Provider value={{ board, boardSol, loading, setLoading, livesLeft, setLivesLeft, totalNoOfLives, fillBtnsCount, setFillBtnsCount, focusedCell, setFocusedCell, updateCell }}>
+    <BoardContext.Provider value={{ board, boardSol, gameOver, setGameOver, getNewBoard, loading, setLoading, livesLeft, setLivesLeft, totalNoOfLives, fillBtnsCount, setFillBtnsCount, focusedCell, setFocusedCell, updateCell }}>
       {props.children}
     </BoardContext.Provider>
   );
