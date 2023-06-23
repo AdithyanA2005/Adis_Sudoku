@@ -1,0 +1,29 @@
+import React, { useContext } from "react";
+import PropTypes from 'prop-types'
+import ColorContext from "../../context/color/ColorContext";
+import BoardContext from "../../context/board/BoardContext";
+
+export default function BoardCell({ cellContent, rowIndex, colIndex }) {
+  const { secondaryColor } = useContext(ColorContext);
+  const { focusedCell, setFocusedCell } = useContext(BoardContext);
+
+  // When clicking a cell set it as the currently focusedCell
+  const handleOnFocus = () => setFocusedCell({ row: rowIndex, col: colIndex });
+
+  return (
+    <div
+      tabIndex={0}
+      style={{ backgroundColor: secondaryColor }}
+      className={`${focusedCell.row === rowIndex && focusedCell.col === colIndex && "ring-[2px] ring-black rounded-sm ring-opacity-70 z-10 opacity-[0.90]"}  grid place-items-center outline-none text-3xl sm:text-4xl hover:opacity-[0.90] `}
+      onFocus={handleOnFocus}
+    >
+      {cellContent}
+    </div>
+  )
+}
+
+BoardCell.propTypes = {
+  cellContent: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  colIndex: PropTypes.number.isRequired,
+  rowIndex: PropTypes.number.isRequired,
+}
