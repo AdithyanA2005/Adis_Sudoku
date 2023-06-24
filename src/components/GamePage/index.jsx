@@ -50,7 +50,7 @@ export default function GamePage() {
       <div
         ref={tableRef}
         style={{ backgroundColor: tertiaryColor }}
-        className="mt-[2vw] shadow-slate-600 shadow p-[1px] grid gap-[1px] grid-cols-9 w-full max-w-2xl mx-auto aspect-square"
+        className="mt-[1vw] shadow-slate-600 shadow p-[1px] grid gap-[1px] grid-cols-9 w-full max-w-2xl mx-auto aspect-square"
       >
         {board.map((row, rowIndex) => {
           return row.map((cell, colIndex) => (

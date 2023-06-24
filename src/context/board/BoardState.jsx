@@ -25,6 +25,9 @@ export default function BoardState(props) {
   // Specifies the row and col of the currently selected cell
   const [focusedCell, setFocusedCell] = useState({ row: 0, col: 0 });
 
+  // This contain indices of the cell in the form [[row, col], ...]. Where the value is same as the focusedCell
+  const [matchingValueIndices, setMatchingValueIndices] = useState([]);
+
   // The request config
   const reqUrl = "https://sudoku-api.vercel.app/api/dosuku";
   const reqConfig = { method: "POST", headers: { "Content-Type": "application/json" } };
@@ -56,6 +59,7 @@ export default function BoardState(props) {
         setLoading(false);
         setGameOver(false);
         setLivesLeft(totalNoOfLives);
+        setFocusedCell({row: 0, col: 0});
       })
   };
 
@@ -108,8 +112,50 @@ export default function BoardState(props) {
     setFillBtnsCount(availNoCount);
   }, [board])
 
+  // This will be executed when the focusedCell changes
+  useEffect(() => {
+    const focusedValue = board[focusedCell.row][focusedCell.col];
+    const indices = [];
+
+    if (focusedValue !== 0) {
+      for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[i].length; j++) {
+          if (board[i][j] === focusedValue) {
+            indices.push([i, j]);
+          }
+        }
+      }
+    };
+
+    setMatchingValueIndices(indices);
+  }, [focusedCell])
+
   return (
-    <BoardContext.Provider value={{ board, boardSol, gameOver, setGameOver, getNewBoard, loading, setLoading, livesLeft, setLivesLeft, totalNoOfLives, fillBtnsCount, setFillBtnsCount, focusedCell, setFocusedCell, updateCell }}>
+    <BoardContext.Provider value={{
+      board,
+      boardSol,
+
+      gameOver,
+      setGameOver,
+
+      loading,
+      setLoading,
+
+      livesLeft,
+      setLivesLeft,
+
+      fillBtnsCount,
+      setFillBtnsCount,
+
+      focusedCell,
+      setFocusedCell,
+
+      totalNoOfLives,
+      matchingValueIndices,
+
+      getNewBoard,
+      updateCell
+    }}>
       {props.children}
     </BoardContext.Provider>
   );
