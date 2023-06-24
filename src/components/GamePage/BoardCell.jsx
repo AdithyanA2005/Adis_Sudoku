@@ -17,7 +17,7 @@ export default function BoardCell({ value, rowIndex, colIndex }) {
 
     // The on focus and hover classes
     if (focusedCell.row === rowIndex && focusedCell.col === colIndex) {
-      classes.push("ring-[2px] ring-black rounded-sm ring-opacity-50 z-10 opacity-[0.70] ");
+      classes.push("ring-[2px] ring-black rounded-sm ring-opacity-50 z-10 opacity-[0.65] ");
     } else {
       if (focusedCell.row === rowIndex || focusedCell.col === colIndex) classes.push("opacity-[0.90]");
       classes.push(" hover:opacity-[0.80]");

@@ -6,8 +6,9 @@ import BoardState from "./context/board/BoardState";
 import ColorState from "./context/color/ColorState";
 import "./index.css"
 
+  {/* <React.StrictMode> */}
+  {/* </React.StrictMode>, */}
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <BrowserRouter>
       <BoardState>
         <ColorState>
@@ -15,5 +16,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         </ColorState>
       </BoardState>
     </BrowserRouter>
-  </React.StrictMode>,
 )

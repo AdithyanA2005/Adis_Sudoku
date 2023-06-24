@@ -9,6 +9,7 @@ export default function BoardState(props) {
   const [board, setBoard] = useState(boardDefaultValues);
   const [boardSol, setBoardSol] = useState(null);
 
+  console.log(boardSol)
   // Stores no of lives left
   const [totalNoOfLives, setTotalNoOfLives] = useState(3);
   const [livesLeft, setLivesLeft] = useState(totalNoOfLives);
@@ -64,7 +65,7 @@ export default function BoardState(props) {
   };
 
   // Update a specific cell in the grid
-  const updateCell = (value) => {
+  const updateFocusedCell = (value) => {
     setBoard(prevBoard => {
       // Indices of currenty selected cell
       const rowIndex = focusedCell.row;
@@ -72,12 +73,16 @@ export default function BoardState(props) {
 
       // Check if entered value is a correct value else reduce a life
       const correctValue = boardSol[rowIndex][colIndex];
-      if (value !== correctValue) return setLives(prev => prev - 1)
+      if (value !== correctValue) {
+        setLivesLeft(prev => prev - 1)
+        return prevBoard;
+      }
 
       // Update the value in the board
       const newBoard = [...prevBoard];
       newBoard[rowIndex][colIndex] = value;
       setBoard(newBoard);
+
     });
   };
 
@@ -90,7 +95,6 @@ export default function BoardState(props) {
   useEffect(() => {
     if (livesLeft === 0) {
       setGameOver(true);
-      alert("game over")
     }
   }, [livesLeft])
 
@@ -154,7 +158,7 @@ export default function BoardState(props) {
       matchingValueIndices,
 
       getNewBoard,
-      updateCell
+      updateFocusedCell
     }}>
       {props.children}
     </BoardContext.Provider>
