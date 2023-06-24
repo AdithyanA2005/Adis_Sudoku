@@ -9,7 +9,6 @@ export default function BoardState(props) {
   const [board, setBoard] = useState(boardDefaultValues);
   const [boardSol, setBoardSol] = useState(null);
 
-  console.log(boardSol)
   // Stores no of lives left
   const [totalNoOfLives, setTotalNoOfLives] = useState(3);
   const [livesLeft, setLivesLeft] = useState(totalNoOfLives);
@@ -71,14 +70,20 @@ export default function BoardState(props) {
       const rowIndex = focusedCell.row;
       const colIndex = focusedCell.col;
 
-      // Check if entered value is a correct value else reduce a life
+      // The audio variables
+      const correctSound = new Audio("/sounds/correct.mp3");
+      const incorrectSound = new Audio("/sounds/incorrect.mp3");
+
+      // Check if entered value is a correct value else reduce a life 
       const correctValue = boardSol[rowIndex][colIndex];
       if (value !== correctValue) {
+        incorrectSound.play();
         setLivesLeft(prev => prev - 1)
         return prevBoard;
       }
 
       // Update the value in the board
+      correctSound.play();
       const newBoard = [...prevBoard];
       newBoard[rowIndex][colIndex] = value;
       setBoard(newBoard);
