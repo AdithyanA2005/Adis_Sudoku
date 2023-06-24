@@ -18,7 +18,7 @@ export default function FillBtn({ value, count }) {
         {value}
       </h2>
 
-      <h3 className="text-xs sm:text-md -mt-1 font-medium">
+      <h3 className="text-xs sm:text-sm  -mt-1 font-medium">
         {count}
       </h3>
     </button>

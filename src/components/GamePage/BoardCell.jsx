@@ -15,37 +15,43 @@ export default function BoardCell({ value, rowIndex, colIndex }) {
     let classes = [];
     classes.push("grid select-none aspect-square place-items-center outline-none text-3xl sm:text-4xl");
 
-    // The on focus and hover classes
-    if (focusedCell.row === rowIndex && focusedCell.col === colIndex) {
-      classes.push("ring-[2px] ring-black rounded-sm ring-opacity-50 z-10 opacity-[0.65] ");
-    } else {
-      if (focusedCell.row === rowIndex || focusedCell.col === colIndex) classes.push("opacity-[0.90]");
-      classes.push(" hover:opacity-[0.80]");
-    }
-
-    // The classes which seperate the board into 9 squares
+    // BORDERS FOR 3x3 BOXES
     if (colIndex < 6 && (colIndex + 1) % 3 === 0) classes.push("border-r");
     if (rowIndex < 6 && (rowIndex + 1) % 3 === 0) classes.push("border-b");
 
-    // The class for the 1 out of 9 box which contain the cell
+    // HIGHLIGHT CELL WITH SAME VALUE AS THAT OF FOCUSED CELL
+    for (let i = 0; i < matchingValueIndices.length; i++) {
+      const position = matchingValueIndices[i];
+      if (rowIndex === position[0] && colIndex === position[1]) {
+        classes.push("opacity-[0.7]");
+      }
+    };
+
+    // CLASSES FOR THE FOCUSED CELL
+    if (focusedCell.row === rowIndex && focusedCell.col === colIndex) {
+      classes.push("ring-[2px] ring-black rounded-sm ring-opacity-50 z-10 opacity-[0.7]");
+      return classes.join(" ");
+    };
+
+    // SHADE THE ROW, COL & BOX OF THE FOCUSED CELL
+    // Check if the cell is in the same box in which the focused cell lies
     const boxRowStart = focusedCell.row - (focusedCell.row % 3);
     const boxRowEnd = boxRowStart + 2;
     const boxColStart = focusedCell.col - (focusedCell.col % 3);
     const boxColEnd = boxColStart + 2;
+    const isCellIn3By3Box = boxRowStart <= rowIndex && rowIndex <= boxRowEnd && boxColStart <= colIndex && colIndex <= boxColEnd;
 
-    if (boxRowStart <= rowIndex && rowIndex <= boxRowEnd) {
-      if (boxColStart <= colIndex && colIndex <= boxColEnd) {
-        classes.push("opacity-[0.90]")
-      }
+    // Check if the cell is in the same col as of the focused cell
+    const isCellInSameCol = focusedCell.col === colIndex;
+
+    // Check if the cell is in the same row as of the focused cell
+    const isCellInSameRow = focusedCell.row === rowIndex;
+
+    if (isCellIn3By3Box || isCellInSameRow || isCellInSameCol) {
+      classes.push("opacity-[0.90]")
     };
 
-    // The classes for cells with same value as focusedCells value
-    for (let i = 0; i < matchingValueIndices.length; i++) {
-      const position = matchingValueIndices[i];
-      if (rowIndex === position[0] && colIndex === position[1]) classes.push("opacity-[0.80]");
-    };
-
-    // Return a string with all the classes combined
+    classes.push(" hover:opacity-[0.80]");
     return classes.join(" ");
   }
 
