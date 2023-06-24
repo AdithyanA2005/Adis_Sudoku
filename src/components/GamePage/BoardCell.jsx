@@ -15,10 +15,13 @@ export default function BoardCell({ value, rowIndex, colIndex }) {
     let classes = [];
     classes.push("grid select-none aspect-square place-items-center outline-none text-3xl sm:text-4xl");
 
-    // The on focus classes
-    if (focusedCell.row === rowIndex && focusedCell.col === colIndex) classes.push("ring-[2px] ring-black rounded-sm ring-opacity-50 z-10 opacity-[0.70]");
-    else if (focusedCell.row === rowIndex || focusedCell.col === colIndex) classes.push("opacity-[0.90]");
-    else classes.push(" hover:opacity-[0.90]");
+    // The on focus and hover classes
+    if (focusedCell.row === rowIndex && focusedCell.col === colIndex) {
+      classes.push("ring-[2px] ring-black rounded-sm ring-opacity-50 z-10 opacity-[0.70] ");
+    } else {
+      if (focusedCell.row === rowIndex || focusedCell.col === colIndex) classes.push("opacity-[0.90]");
+      classes.push(" hover:opacity-[0.80]");
+    }
 
     // The classes which seperate the board into 9 squares
     if (colIndex < 6 && (colIndex + 1) % 3 === 0) classes.push("border-r");
