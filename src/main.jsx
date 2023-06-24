@@ -9,7 +9,7 @@ import "./index.css"
 {/* <React.StrictMode> */ }
 {/* </React.StrictMode>, */ }
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter basename="/Adis_Sudoku">
+  <BrowserRouter>
     <BoardState>
       <ColorState>
         <App />
