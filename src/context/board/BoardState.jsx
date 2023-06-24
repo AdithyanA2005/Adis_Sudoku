@@ -117,9 +117,14 @@ export default function BoardState(props) {
 
     // This will make the array store the no of time a number "can be used" again
     for (const i in availNoCount) availNoCount[i] = 9 - availNoCount[i];
-
     setFillBtnsCount(availNoCount);
   }, [board])
+
+  // This will check if the player had winned
+  useEffect(() => {
+    const sum = fillBtnsCount.reduce((prevSum, num) => prevSum + num, 0);
+    if (sum === 0) setGameOver(true);
+  }, [fillBtnsCount])
 
   // This will be executed when the focusedCell changes
   useEffect(() => {

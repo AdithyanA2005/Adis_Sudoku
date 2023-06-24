@@ -29,7 +29,7 @@ export default function GamePage() {
 
   return (
     <section>
-      <GameOverModal win={false}/>
+      <GameOverModal win={livesLeft > 0}/>
 
       {/* Stat Bar */}
       <div className="w-full max-w-2xl mx-auto mt-[2vw]">
